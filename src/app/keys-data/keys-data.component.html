@@ -1,0 +1,27 @@
+<div class="container">
+  <br>
+  <div class="jumbotron">
+      <h1 class="display-4">Keys Data</h1>
+      <p class="lead">Seleccione un systemTest para procesar el log y obtener la información de las teclas presionadas.</p>
+      <hr class="my-4">
+
+      <div class="row">
+          <div class="dropdown ml-5" id="comboJob">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  {{txtDropDown}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="comboJobItems">
+                  <a class="dropdown-item" href="#" *ngFor="let item of aItems" (click)="selectedJob(item.name,item.url)">{{item.name}}</a>
+              </div>
+          </div>
+
+          <button type="button" class="btn btn-primary ml-5" id="button" (click)="test()">Get Keys Info</button>
+
+      </div>
+  </div>
+
+
+
+</div>
+<!-- container -->
