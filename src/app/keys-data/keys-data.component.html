@@ -1,27 +1,49 @@
 <div class="container">
   <br>
   <div class="jumbotron">
-      <h1 class="display-4">Keys Data</h1>
-      <p class="lead">Seleccione un systemTest para procesar el log y obtener la información de las teclas presionadas.</p>
-      <hr class="my-4">
+    <h1 class="display-4">Keys Data</h1>
+    <p class="lead">Ingrese una URL o la ubicación local del "gdPos.log" para obtener información de las teclas presionadas.</p>
+    <hr class="my-4">
 
-      <div class="row">
-          <div class="dropdown ml-5" id="comboJob">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+    <div align="center">
+
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="URL" aria-label="URL" aria-describedby="basic-addon2" [(ngModel)]="txtURL">
+        <div class="input-group-append">
+          <!-- <button class="btn btn-outline-secondary" type="button">...</button> -->
+        </div>
+      </div>
+
+      <div class="row" >
+            <div class="dropdown ml-3" id="comboJob">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false">
                   {{txtDropDown}}
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="comboJobItems">
-                  <a class="dropdown-item" href="#" *ngFor="let item of aItems" (click)="selectedJob(item.name,item.url)">{{item.name}}</a>
-              </div>
-          </div>
-
-          <button type="button" class="btn btn-primary ml-5" id="button" (click)="test()">Get Keys Info</button>
-
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="comboJobItems">
+                  <a class="dropdown-item" *ngFor="let item of aItems" (click)="selectedJob(item.name,item.url)">{{item.name}}</a>
+                </div>
+            </div>
+      
+            <button type="button" class="btn btn-primary ml-5" id="button" (click)="getKeysInfo()" *ngIf="flagBtnGetKeysInfo == true">Get Keys Info</button>
       </div>
+    </div>
+
+  </div><!-- jumbotron -->
+
+  <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="flagAlertTxtURL == true">
+      <strong>Nooooup!</strong> Por favor, ingresá una URL y seleccioná el job del combo.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    
+  <div class="card card-body mb-5" align="center" *ngIf="aKeys.length > 1">
+    <a *ngFor="let item of aKeys">{{item}}</a>
+    <br>
+    <button type="button" class="btn btn-link" (click)="copy()">Copy</button>
   </div>
 
 
-
-</div>
-<!-- container -->
+</div><!-- container -->
