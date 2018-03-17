@@ -14,9 +14,11 @@ import { HomeComponent } from './home/home.component';
 import { SystemTestComponent } from './system-test/system-test.component';
 import { JenkinsReportsComponent } from './jenkins-reports/jenkins-reports.component';
 import { KeysDataComponent } from './keys-data/keys-data.component';
+import { OutputValidationComponent } from './output-validation/output-validation.component';
 
 //Ruteo
 const appRoutes: Routes = [
+  { path: 'val'                , component: OutputValidationComponent },
   { path: 'keys'                , component: KeysDataComponent },
   { path: 'jks'                , component: JenkinsReportsComponent },
   { path: 'st'                , component: SystemTestComponent },
@@ -30,7 +32,8 @@ const appRoutes: Routes = [
     HomeComponent,
     SystemTestComponent,
     JenkinsReportsComponent,
-    KeysDataComponent
+    KeysDataComponent,
+    OutputValidationComponent
   ],
   imports: [
     BrowserModule,

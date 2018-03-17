@@ -1,0 +1,11 @@
+[ 
+  {"sodimac_colombia" : [
+                          {"mark":"DATA_COLLECT.mark()","output":"var dataCollectBuffer = new RecordBuffer(new DataCollectFactory(), new Array("},
+                          {"mark":"JOURNAL.mark()","output":"var journalBuffer = new RecordBuffer(new JournalFactory(), new Array("}
+                        ]},
+  {"walmart_argentina": [
+                          {"mark":"DATA_COLLECT.mark()","output":"var dataCollectBuffer = new RecordBuffer(new DataCollectFactory(), new Array("},
+                          {"mark":"JOURNAL.mark()","output":"var journalBuffer = new RecordBuffer(new JournalFactory(), new Array("}
+                        ]}
+]
+

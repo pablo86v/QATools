@@ -1,0 +1,39 @@
+<div class="container">
+    <br>
+    <div class="jumbotron">
+      <h1 class="display-4">Eris output validation</h1>
+      <p class="lead">Ingrese la ubicación de los testcases para validar la salidas configuradas en los mismos.</p>
+     
+      <hr class="my-4">
+  
+      <div align="center">
+  
+        <div class="input-group mb-3">
+            <input type="file" id="files" name="files[]" multiple  class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" />
+            <output id="list"></output>
+        </div>
+  
+        <div class="row" >
+              <div class="dropdown ml-3" id="comboJob">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    {{txtDropDown}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="comboJobItems">
+                    <a class="dropdown-item" *ngFor="let item of aItems" (click)="selectedJob(item.name,item.url)">{{item.name}}</a>
+                  </div>
+              </div>
+        
+              <button type="button" class="btn btn-primary ml-5" id="button" (click)="validateTCOutputs()">Validate</button>
+        </div>
+      </div>
+  
+    </div><!-- jumbotron -->
+
+</div>
+
+
+
+
+
+

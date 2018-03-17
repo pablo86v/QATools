@@ -11,7 +11,7 @@ export class FilesService {
   }
 
  
-  getFile(parURL){
+  getTxtFile(parURL){
 
     // Consulta la ultima corrida de jenkins para obtener el gspos.log
     return this.http.get(parURL,{responseType: 'text'});
@@ -19,5 +19,13 @@ export class FilesService {
   }
 
 
+  
+   
+  getJsonFile(parURL){
+
+    // Consulta la ultima corrida de jenkins para obtener el gspos.log
+    return this.http.get(parURL);
+
+  }
 
 }
