@@ -8,9 +8,15 @@
   
       <div align="center">
   
-        <div class="input-group mb-3">
-            <input type="file" id="files" name="files[]" multiple  class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" />
+        <!-- <div class="input-group mb-3">
+            <input type="file" id="files" name="files[]" multiple  class="form-control"  aria-label="Default" aria-describedby="inputGroup-sizing-default" />
             <output id="list"></output>
+        </div> -->
+        <div class="input-group mb-3">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="files" name="files[]" (change)="readFiles($event)" multiple>
+            <label class="custom-file-label" >{{txtInputFile}}</label>
+          </div>
         </div>
   
         <div class="row" >
@@ -20,15 +26,33 @@
                     {{txtDropDown}}
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="comboJobItems">
-                    <a class="dropdown-item" *ngFor="let item of aItems" (click)="selectedJob(item.name,item.url)">{{item.name}}</a>
+                    <a class="dropdown-item" *ngFor="let item of aItems" (click)="selectedJob(item)">{{item}}</a>
                   </div>
               </div>
         
-              <button type="button" class="btn btn-primary ml-5" id="button" (click)="validateTCOutputs()">Validate</button>
+              <button type="button" class="btn btn-primary ml-5" id="button" (click)="validateTCOutputs()" *ngIf="flagBtnValidate == true">Validate</button>
         </div>
       </div>
   
     </div><!-- jumbotron -->
+
+    <div *ngIf="flagAlertErrors == true">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert"  *ngFor="let err of aErrors">
+        <strong>Missing! </strong> {{err}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+
+
+
+    <div class="card card-body mb-5" align="left" *ngIf="aFiles.length > 0">
+      <a *ngFor="let item of aFiles">{{item}}</a>
+      <br>
+      <!-- <button type="button" class="btn btn-link" (click)="copy()">Copy</button> -->
+    </div>
+
 
 </div>
 

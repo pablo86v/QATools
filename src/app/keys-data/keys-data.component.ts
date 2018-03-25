@@ -131,8 +131,8 @@ export class KeysDataComponent implements OnInit {
            if(this.validarSiNumero(keyText.trim().substr(1,1))){
               this.aux = this.aux + keyText.trim().substr(1,1);
            }else{
-              this.aKeys.push(this.aux);
-              this.aKeys.push(keyText);    
+              if(this.aux.trim().length > 0) this.aKeys.push(this.aux.trim());
+              this.aKeys.push(keyText.trim());    
               this.aux = "";            
            }
            

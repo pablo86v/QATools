@@ -1,11 +1,59 @@
 [ 
-  {"sodimac_colombia" : [
-                          {"mark":"DATA_COLLECT.mark()","output":"var dataCollectBuffer = new RecordBuffer(new DataCollectFactory(), new Array("},
-                          {"mark":"JOURNAL.mark()","output":"var journalBuffer = new RecordBuffer(new JournalFactory(), new Array("}
-                        ]},
-  {"walmart_argentina": [
-                          {"mark":"DATA_COLLECT.mark()","output":"var dataCollectBuffer = new RecordBuffer(new DataCollectFactory(), new Array("},
-                          {"mark":"JOURNAL.mark()","output":"var journalBuffer = new RecordBuffer(new JournalFactory(), new Array("}
-                        ]}
+  { "name": "Common" , 
+    "outputs": [
+                 {"mark":"CEM.mark()","RecordBuffer":"DEFAULT_CEM_IGNORE_LIST, lineRecordBuffer, CEM"},
+                 {"mark":"DATA_COLLECT.mark()","RecordBuffer":"var dataCollectBuffer = new RecordBuffer(new DataCollectFactory(), new Array("},
+                 {"mark":"DEPT_SALES.mark()","RecordBuffer":"DEFAULT_DEPT_SALES_IGNORE_REGEX, lineRecordBuffer, DEPT_SALES"},
+                 {"mark":"DP.mark()","RecordBuffer":"DP_IGNORE_REGEX, lineRecordBuffer, DP"},
+                 {"mark":"FINANCIAL.mark()","RecordBuffer":"DEFAULT_FINANCIAL_IGNORE_LIST, financialList, FINANCIAL"},
+                 {"mark":"FISCAL.mark()","RecordBuffer":"FISCAL_IGNORE_REGEX, fiscalBuffer, FISCAL"},
+                 {"mark":"IDCR_DB.mark()","RecordBuffer":"IDCR_DB_IGNORE_REGEX, lineRecordBuffer, IDCR_DB"},
+                 {"mark":"IXRETAIL.mark()","RecordBuffer":"DEFAULT_IXRETAIL_IGNORE_REGEX, lineRecordBuffer, IXRETAIL"},
+                 {"mark":"JOURNAL.mark()","RecordBuffer":"var journalBuffer = new RecordBuffer(new JournalFactory(), new Array("},
+                 {"mark":"REGISTER_SALES.mark()","RecordBuffer":"DEFAULT_REGISTER_SALES_IGNORE_REGEX, lineRecordBuffer, REGISTER_SALES"}
+               ]},
+
+  { "name": "Sodimac Colombia" , 
+    "outputs": [
+                 {"mark":"DATAFONO_ADMIN.mark()","RecordBuffer":"DATAFONO_ADMIN_IGNORE_REGEX, lineRecordBuffer, DATAFONO_ADMIN"},
+                 {"mark":"DN.mark()","RecordBuffer":"DN_IGNORE_REGEX, lineRecordBuffer, DN"},
+                 {"mark":"FABELLA.mark()","RecordBuffer":"FALABELLA_IGNORE_REGEX, lineRecordBuffer, FALABELLA"},
+                 {"mark":"GIFTCARD.mark()","RecordBuffer":"GIFTCARD_IGNORE_REGEX, lineRecordBuffer, GIFTCARD"},
+                 {"mark":"JN.mark()","RecordBuffer":"JN_IGNORE_REGEX, lineRecordBuffer, JN"},
+                 {"mark":"LAYAWAY.mark()","RecordBuffer":"LAYAWAY_IGNORE_REGEX, lineRecordBuffer, LAYAWAY"},
+                 {"mark":"PINPAD.mark()","RecordBuffer":"PINPAD_IGNORE_REGEX, lineRecordBuffer, PINPAD"},
+                 {"mark":"REPORTE_PROSEGUR.mark()","RecordBuffer":"REPORTE_PROSEGUR_IGNORE_REGEX, lineRecordBuffer, REPORTE_PROSEGUR"},
+                 {"mark":"RETAIL_SWITCH.mark()","RecordBuffer":"RETAIL_SWITCH_IGNORE_REGEX, lineRecordBuffer, RETAIL_SWITCH"},
+                 {"mark":"SALES_DPT.mark()","RecordBuffer":"SALES_DPT_IGNORE_REGEX, lineRecordBuffer, SALES_DPT"},
+                 {"mark":"SALES_REG.mark()","RecordBuffer":"SALES_REG_IGNORE_REGEX, lineRecordBuffer, SALES_REG"},
+                 {"mark":"SAPS.mark()","RecordBuffer":"SAPS_IGNORE_REGEX, lineRecordBuffer, SAPS"},
+                 {"mark":"SWITCH.mark()","RecordBuffer":"SWITCH_IGNORE_REGEX, lineRecordBuffer, SWITCH"},
+                 {"mark":"TRANZAS.mark()","RecordBuffer":"TRANZAS_IGNORE_REGEX, lineRecordBuffer, TRANZAS"}
+               ]},
+
+  { "name": "Walmart Argentina" , 
+    "outputs": [
+                 {"mark":"ASSOCIATE_DISCOUNT.mark()","RecordBuffer":"DEFAULT_ASSOCIATE_DISCOUNT_IGNORE_REGEX, lineRecordBuffer, ASSOCIATE_DISCOUNT"},
+                 {"mark":"BCT.mark()","RecordBuffer":"DEFAULT_BCT_IGNORE_REGEX, lineRecordBuffer, BCT"},
+                 {"mark":"GIFTCARD.mark()","RecordBuffer":"DEFAULT_GIFTCARD_IGNORE_REGEX, lineRecordBuffer, GIFTCARD"},
+                 {"mark":"NEGOCIACION.mark()","RecordBuffer":"DEFAULT_NEGOCIACION_IGNORE_REGEX, lineRecordBuffer, NEGOCIACION"},
+                 {"mark":"VTOL.mark()","RecordBuffer":"VTOL_IGNORE_REGEX, lineRecordBuffer, VTOL"}
+
+               ]},
+
+  { "name": "Sodimac Mexico" , 
+    "outputs": [
+                 {"mark":"CANALES.mark()","RecordBuffer":"CANALES_IGNORE_REGEX, lineRecordBuffer, CANALES"}
+               ]},
+
+   { "name": "Cencosud Chile" , 
+    "outputs": [
+                 {"mark":"ACEPTA.mark()","RecordBuffer":"DEFAULT_ACEPTA_IGNORE_REGEX, lineRecordBuffer, ACEPTA"},
+                 {"mark":"PPL.mark()","RecordBuffer":"DEFAULT_PPL_IGNORE_REGEX , lineRecordBuffer, PPL"},
+                 {"mark":"SWITCH.mark()","RecordBuffer":"SWITCH_IGNORE_REGEX, lineRecordBuffer, SWITCH"}
+               ]}
+
+
+
 ]
 
