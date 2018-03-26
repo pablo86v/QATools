@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FilesService} from './../services/files.service';
 import {JenkinsService} from './../services/jenkins.service';
+import {GlobalFunctionsService} from './../services/global-functions.service';
 
 //to do:  recuperar al inicio el config-xml para tenerlo en memoria.
 // No está bueno ir tantas veces contra el servicio file (una vez por cada tecla encontrada)
@@ -25,7 +26,7 @@ export class KeysDataComponent implements OnInit {
   private QATools_config;
   private aux = "";
 
-  constructor(public file : FilesService , public jks:JenkinsService) {
+  constructor(public file : FilesService , public jks:JenkinsService , public gFx : GlobalFunctionsService) {
         //Obtengo de jenkins la info general que incluye la lista de jobs en un array ("jobs")
         this.jks.getJobsList().subscribe(data => 
           this.aItems = <any>data['jobs'],
@@ -128,7 +129,7 @@ export class KeysDataComponent implements OnInit {
            let keyText = lineas[i].substring(inicio,lineas[i].indexOf("value="));
            
           //  agrego la info obtenida del keys al array para mostrarlo en pantalla
-           if(this.validarSiNumero(keyText.trim().substr(1,1))){
+           if(this.gFx.validarSiNumero(keyText.trim().substr(1,1))){
               this.aux = this.aux + keyText.trim().substr(1,1);
            }else{
               if(this.aux.trim().length > 0) this.aKeys.push(this.aux.trim());
@@ -141,40 +142,16 @@ export class KeysDataComponent implements OnInit {
     
   }
 
-  test(){
-    console.log("test");
-  }
-
   copy() {
-
-    let selBox = document.createElement('textarea');
     let auxArray = "";
-
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-
     this.aKeys.forEach(element => {
       auxArray = auxArray + element + "\n";
     });
 
-    selBox.value = auxArray;
+    this.gFx.copyToClipBoard(auxArray);
 
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
   }
 
-  validarSiNumero(numero){
-    if (!/^([0-9])*$/.test(numero)){
-      return false
-    }else{
-      return true
-    }
-  }    
+ 
 
 }//class

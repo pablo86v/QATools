@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {JenkinsService} from './../services/jenkins.service';
+import {GlobalFunctionsService} from './../services/global-functions.service';
 
 @Component({
   selector: 'app-jenkins-reports',
@@ -15,7 +16,7 @@ export class JenkinsReportsComponent implements OnInit {
   private aItems: any [];
   private txtGdPos;
 
-  constructor(public jks : JenkinsService) { 
+  constructor(public jks : JenkinsService, public gFx : GlobalFunctionsService) { 
 
          //Obtengo de jenkins la info general que incluye la lista de jobs en un array ("jobs")
        this.jks.getJobsList().subscribe(data => 
@@ -132,45 +133,9 @@ export class JenkinsReportsComponent implements OnInit {
   exportToCsv() {
 
       let filename = this.jobName + ".csv";
-  
-  
-      let processRow = function (row) {
-          let finalVal = '';
-          for (let j = 0; j < row.length; j++) {
-              let innerValue = row[j] === null ? '' : row[j].toString();
-              if (row[j] instanceof Date) {
-                  innerValue = row[j].toLocaleString();
-              };
-              let result = innerValue.replace(/"/g, '""');
-              if (result.search(/("|,|\n)/g) >= 0)
-                  result = '"' + result + '"';
-             
-              finalVal += result;
-          }
-          return finalVal + '\n';
-      };
-  
-      let csvFile = '';
-      for (let i = 0; i < this.arrSort.length; i++) {
-          csvFile += processRow(this.arrSort[i]);
-      }
-  
-      let blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
-      if (navigator.msSaveBlob) { // IE 10+
-          navigator.msSaveBlob(blob, filename);
-      } else {
-          let link = document.createElement("a");
-          if (link.download !== undefined) { // feature detection
-              // Browsers that support HTML5 download attribute
-              let url = URL.createObjectURL(blob);
-              link.setAttribute("href", url);
-              link.setAttribute("download", filename);
-              link.style.visibility = 'hidden';
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-          }
-      }
+
+      this.gFx.ArrayToCSV(filename,this.arrSort);
+
   }
 
 

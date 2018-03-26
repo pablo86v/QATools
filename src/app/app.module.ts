@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 // servicios
 import {JenkinsService} from './services/jenkins.service';
 import {FilesService} from './services/files.service';
+import {GlobalFunctionsService} from './services/global-functions.service';
 
 //componentes
 import { AppComponent } from './app.component';
@@ -43,7 +44,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     JenkinsService,
-    FilesService
+    FilesService,
+    GlobalFunctionsService
   ],
   bootstrap: [AppComponent]
   

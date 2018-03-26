@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FilesService} from './../services/files.service';
 import {JenkinsService} from './../services/jenkins.service';
+import {GlobalFunctionsService} from './../services/global-functions.service';
 
 @Component({
   selector: 'app-output-validation',
@@ -9,19 +10,19 @@ import {JenkinsService} from './../services/jenkins.service';
 })
 export class OutputValidationComponent implements OnInit {
 
-  private aItems= [];
-  private aFiles= [];
+  private aItemsCbo= [];
   private aErrors= [];
-  private afilesToValidate = [];
-  
-  private txtDropDown = "Seleccionar Job";
+  private aFilesToValidate = [];
+
+  private txtDropDown = "Select project";
   private Outputs_config;
-  private txtInputFile = "";
   private clientName;
   private flagBtnValidate = false;
-  private flagAlertErrors = false;
+  private flagAlertErrors ;
 
-  constructor(public file : FilesService , public jks:JenkinsService) { 
+
+
+  constructor(public file : FilesService , public jks:JenkinsService, public gFx : GlobalFunctionsService) { 
 
       // Obtengo el archivo de config local
       this.file.getJsonFile("assets/Outputs_config.json").subscribe(data => 
@@ -32,7 +33,7 @@ export class OutputValidationComponent implements OnInit {
           this.Outputs_config.forEach(element => {
             //El common no se carga en el array del combo
             if (element.name.toString().trim() != "Common")
-              this.aItems.push(element.name.toString().trim());
+              this.aItemsCbo.push(element.name.toString().trim());
           });
         
         },
@@ -45,7 +46,6 @@ export class OutputValidationComponent implements OnInit {
     // document.getElementById('files').addEventListener('change', this.readFiles, false);
 
   }
-
 
   selectedJob(parName){
 
@@ -61,37 +61,35 @@ export class OutputValidationComponent implements OnInit {
   }
 
   readFiles($event) {
-
-    // limpio los arrays para iniciar validaciones nuevas
-    this.aErrors = [];
-    this.aFiles = [];
-    this.afilesToValidate = [];
-
-
     //leo los archivos seleccionados y los guardo en aFilesToValidate
     let aux = $event.target.files;
+    let myObj;
 
     for (let i=0;i<aux.length;i++){ 
-
-      this.aFiles.push(aux[i].name);
 
       if (!aux[i]) { return; }
 
       let reader = new FileReader();
       reader.onload = (content : any) => {
-        this.afilesToValidate.push(aux[i].name + "|DEBUGFILENAME|" + content.target.result);
+
+        myObj =
+        {
+          'fileName':aux[i].name,
+          'content' : content.target.result,
+          'errCount': 0
+        }
+
+        this.aFilesToValidate.push(myObj);
       };
       reader.readAsText(aux[i]);      
     }
-
-    console.info(this.afilesToValidate);
-    
-
+    console.info(this.aFilesToValidate);
   }
 
   validateTCOutputs(){
-    let aOutput,aCommonOutput,aClientOutput ,auxFileName;
- 
+
+    let aOutput,aCommonOutput,aClientOutput ,auxFileName,myError;
+   
     //obtengo los outputs common + los propios del cliente.
     aCommonOutput =  this.Outputs_config.find((item) => item.name == "Common");
     aClientOutput = this.Outputs_config.find((item) => item.name == this.clientName);
@@ -99,26 +97,48 @@ export class OutputValidationComponent implements OnInit {
     // concateno los arrays obtenidos
     aOutput = aCommonOutput.outputs.concat(aClientOutput.outputs);
 
-
-    aOutput.forEach(element => {
-      for (let i=0;i<this.afilesToValidate.length;i++){ 
+    for (let i=0;i<this.aFilesToValidate.length;i++){ 
+      aOutput.forEach(element => {
         // si encuentro el .mark en el testcase, luego busco el recordBuffer
-        if(this.afilesToValidate[i].toString().indexOf(element.mark)>0){
-          if(this.afilesToValidate[i].toString().indexOf(element.RecordBuffer)<0){ 
+        if(this.aFilesToValidate[i].content.toString().indexOf(element.mark)>0){
+          if(this.aFilesToValidate[i].content.toString().indexOf(element.RecordBuffer)<0){ 
             // ERROR: Se encontró el .mark pero NO el recordBuffer.
-            this.flagAlertErrors = true;
-            auxFileName = this.afilesToValidate[i].split("|DEBUGFILENAME|");
-            // console.log(" "+ auxFileName[0] + ":  " + element.mark + " -> RecordBuffer not found.");
-            this.aErrors.push(" "+ auxFileName[0] + ":  " + element.mark + " -> RecordBuffer not found.");
+            myError = this.aFilesToValidate[i].fileName + ":  " + element.mark + " -> RecordBuffer not found.";
+            // console.log(myError);
+            this.aErrors.push(myError);
+            this.aFilesToValidate[i].errCount = this.aFilesToValidate[i].errCount + 1 ;
           }
         }
-      }
-    });
-
+      });
+    }
+    
+    if(this.aErrors.length == 0){
+      // sino hubo errores muestro alert sucess
+      this.flagAlertErrors = 0;
+    } else if(this.aErrors.length <= 6){
+      //hasta 6 errores muestro los alerts
+      this.flagAlertErrors = 1;
+    }else{
+      //mas de 6 pido bajar CSV
+      this.flagAlertErrors = 2;
+    }
+    
 
   }
 
+  clear(){
+        // limpio los arrays para iniciar validaciones nuevas
+        this.aErrors = [];
+        this.flagAlertErrors = -1;
+        this.aFilesToValidate = [];
+        this.txtDropDown = "Select project";
+        this.clientName = "";
+        this.flagBtnValidate = false;
+  }
 
+  exportToCSV(){
+    this.gFx.ArrayToCSV(this.clientName + "_TCs_errors.csv",this.aErrors);
+  }
 
 
 
