@@ -12,7 +12,7 @@ export class JenkinsReportsComponent implements OnInit {
   public jobs;
   private arrSort = [];
   private jobName;
-  private txtDropDown = "Seleccionar Job";
+  private txtDropDown = "Select  Job";
   private aItems: any [];
   private txtGdPos;
 

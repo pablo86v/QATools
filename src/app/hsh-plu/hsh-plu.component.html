@@ -1,0 +1,75 @@
+<div class="container">
+  <br>
+
+  <!-- jumbotron -->
+  <div class="jumbotron">
+    <h1 class="display-4">Find items in HSH-PLU</h1>
+    <p class="lead">Enter the filter criteria to find items.</p>
+   
+    <hr class="my-4">
+
+    <div align="center">
+      <div class="input-group mb-3">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="files" name="files[]" (change)="readFile($event)">
+          <label class="custom-file-label" >Select HSH-PLU</label>
+        </div>
+      </div>
+
+      <div class="row" >
+            <div class="dropdown ml-3" id="comboJob">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  {{txtDropDown}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="comboJobItems">
+                  <a class="dropdown-item" *ngFor="let item of aItemsCbo" (click)="selectedJob(item)">{{item}}</a>
+                </div>
+            </div>
+      
+            <button type="button" class="btn btn-outline-primary ml-5" id="button" (click)="validateTCOutputs()" *ngIf="flagBtnValidate == true && aFilesToValidate.length > 0">Validate</button>
+            <button type="button" class="btn btn-outline-danger ml-5" id="button" (click)="clear()" >Clear</button>
+      </div>
+    </div>
+  </div>
+  <!-- END jumbotron -->
+
+
+  <!-- alertas -->
+  <div *ngIf="flagAlertErrors == 0">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Great!</strong> No errors found!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+  </div>
+  <div *ngIf="flagAlertErrors == 1">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert"  *ngFor="let err of aErrors">
+      <strong>Missing!</strong> {{err}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+  </div>
+  <div *ngIf="flagAlertErrors == 2" align="center">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+      <strong>Danger!</strong> Many errors found, download CSV por details.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <button type="button" class="btn btn-link" (click)="exportToCSV()">Download CSV</button>
+  </div>
+  <!-- END alertas -->
+
+
+  <!-- lista de archivos -->
+  <div class="card card-body mb-5" align="left" >
+    <a>
+    </a>
+    <br>
+  </div>
+  <!-- END lista de archivos -->
+
+
+</div>
+
+
+
+
+

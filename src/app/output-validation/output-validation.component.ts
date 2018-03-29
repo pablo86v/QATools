@@ -70,6 +70,7 @@ export class OutputValidationComponent implements OnInit {
       if (!aux[i]) { return; }
 
       let reader = new FileReader();
+      console.info(reader);
       reader.onload = (content : any) => {
 
         myObj =
@@ -83,7 +84,7 @@ export class OutputValidationComponent implements OnInit {
       };
       reader.readAsText(aux[i]);      
     }
-    console.info(this.aFilesToValidate);
+    // console.info(this.aFilesToValidate);
   }
 
   validateTCOutputs(){
@@ -113,14 +114,14 @@ export class OutputValidationComponent implements OnInit {
     }
     
     if(this.aErrors.length == 0){
-      // sino hubo errores muestro alert sucess
-      this.flagAlertErrors = 0;
-    } else if(this.aErrors.length <= 6){
-      //hasta 6 errores muestro los alerts
-      this.flagAlertErrors = 1;
-    }else{
-      //mas de 6 pido bajar CSV
-      this.flagAlertErrors = 2;
+        // sino hubo errores muestro alert sucess
+        this.flagAlertErrors = 0;
+      } else if(this.aErrors.length <= 6){
+        //hasta 6 errores muestro los alerts
+        this.flagAlertErrors = 1;
+      }else{
+        //mas de 6 pido bajar CSV
+        this.flagAlertErrors = 2;
     }
     
 

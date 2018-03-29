@@ -72,8 +72,6 @@ export class GlobalFunctionsService {
     }
   }   
 
-  test(){
-    console.log("test");
-  }
+
 
 }
